@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Order(s)</title>
+</head>
+<body>
+
+<h1 id="greeting"></h1>
+<p id="orderInfo"></p>
+<p id="arrivalInfo"></p>
+
+<script>
+
+alert("Welcome to our online store!");
+
+let name = prompt("Enter your name:");
+let item = prompt("What would you like to order?");
+
+let quantity;
+
+do {
+    quantity = prompt("How much of said item would you like to purchase? (1-99)");
+} while (quantity < 1 || quantity > 99 || isNaN(quantity));
+
+let today = new Date();
+let hour = today.getHours();
+let greeting;
+
+if (hour < 12) {
+    greeting = "Good Morning";
+} else if (hour < 18) {
+    greeting = "Good Afternoon";
+} else {
+    greeting = "Good Evening";
+}
+
+document.getElementById("greeting").innerHTML =
+    greeting + " " + name + ", Thank you for Ordering!";
+
+document.getElementById("orderInfo").innerHTML =
+    "You ordered <strong>" + quantity + "</strong> " + item + "(s).";
+
+let arrivalDate = new Date();
+arrivalDate.setDate(arrivalDate.getDate() + 7);
+
+document.getElementById("arrivalInfo").innerHTML =
+    "Your order will arrive on " + arrivalDate.toDateString();
+
+</script>
+
+</body>
+</html>
