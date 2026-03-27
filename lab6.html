@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Facts About Cats</title>
+  <style>
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      text-align: center;
+    }
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      width: 70%;
+    }
+    th, td {
+      border: 1px solid black;
+    }
+    th {
+      background-color: lightskyblue;
+    }
+    img {
+      width: 300px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Facts About Cats</h1>
+
+  <button onclick="loadData()">Load Facts</button>
+
+  <div>
+    <img id="catImage" src="https://via.placeholder.com/300" alt="Cat Image">
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Factid</th>
+        <th>Fact</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+
+  <script>
+    function loadData() {
+      fetch("https://brianobruno.github.io/cats.json")
+        .then(response => response.json())
+        .then(data => {
+          
+          const sortedFacts = data.facts.sort((a, b) => a.factId - b.factId);
+
+          const tableBody = document.getElementById("tableBody");
+          tableBody.innerHTML = ""; 
+
+          sortedFacts.forEach(fact => {
+            const row = document.createElement("tr");
+
+            const idCell = document.createElement("td");
+            idCell.textContent = fact.factId;
+
+            const textCell = document.createElement("td");
+            textCell.textContent = fact.text;
+
+            row.appendChild(idCell);
+            row.appendChild(textCell);
+
+            tableBody.appendChild(row);
+          });
+
+          const img = document.getElementById("catImage");
+          img.src = data.catPhoto;
+        })
+    }
+  </script>
+
+</body>
+</html>
